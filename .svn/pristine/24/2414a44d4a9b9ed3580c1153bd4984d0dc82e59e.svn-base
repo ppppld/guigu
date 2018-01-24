@@ -1,0 +1,47 @@
+package com.guigu.ssm.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.guigu.ssm.po.ItemsCustom;
+import com.guigu.ssm.service.ItemsService;
+
+/**       
+ * <p>project_name:SpringMVCSpringMyBatis</p>
+ * <p>package_name:com.guigu.ssm.controller.ItemsController</p>
+ * <p>description：</p>
+ * <p>@author：刘老师<p>   
+ * <p> date:2018年1月18日下午2:26:04 </p>
+ * <p>comments：    </p>
+ * <p>@version  jdk1.8</p>
+ * 
+ * <p>Copyright (c) 2018, 980991634@qq.com All Rights Reserved. </p>    
+ */
+@Controller
+public class ItemsController {
+
+    @Autowired
+    @Qualifier("itemsService")
+    private ItemsService itemsService;
+    
+    //商品的查询
+    @RequestMapping("/queryItems.action")
+    public ModelAndView queryItems() throws Exception{
+        
+        List<ItemsCustom> itemsList =itemsService.findItemsList(null);
+        //返回ModelAndView
+        ModelAndView modelAndView =new ModelAndView();
+        modelAndView.addObject("itemsList",itemsList);
+        modelAndView.setViewName("items/itemsList");
+        return modelAndView;
+        
+    }
+    
+}
+
+
